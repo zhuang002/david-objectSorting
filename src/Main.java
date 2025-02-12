@@ -10,11 +10,17 @@ public class Main {
 		ArrayList<Student> students = loadStudents();
 		sortStudentsByName(students);
 		
-		System.out.println("Sort by name");
 		for (Student s:students) {
 			System.out.println(s);
 		}
 		System.out.println("=========================");
+		
+		
+		/*System.out.println("Sort by name");
+		for (Student s:students) {
+			System.out.println(s);
+		}
+		System.out.println("=========================");*/
 		
 		/*sortStudentById(students);
 		System.out.println("Sort by id");
@@ -41,6 +47,7 @@ public class Main {
 		while (!line.equals("EOF")) {
 			Student stud= Student.loadStudent(line);
 			students.add(stud);
+			line = sc.nextLine();
 		}
 		return students;
 	}
@@ -65,22 +72,40 @@ class Student {
 	public static Student loadStudent(String line) {
 		Student stud = new Student();
 		String[] fields = line.split(",");
-		stud.name = fields[0];
-		stud.id = Integer.parseInt(fields[1]);
-		stud.age = Integer.parseInt(fields[2]);
-		stud.gender = fields[4].charAt(0);
-		stud.grade = Integer.parseInt(fields[5]);
+		stud.name = fields[0].trim();
+		stud.id = Integer.parseInt(fields[1].trim());
+		stud.age = Integer.parseInt(fields[2].trim());
+		stud.gender = fields[3].trim().charAt(0);
+		stud.grade = Integer.parseInt(fields[4].trim());
 		stud.birthdate = new BirthDate();
-		stud.birthdate.year = Integer.parseInt(fields[6]);
-		stud.birthdate.month = Integer.parseInt(fields[7]);
-		stud.birthdate.date = Integer.parseInt(fields[8]);
+		stud.birthdate.year = Integer.parseInt(fields[5].trim());
+		stud.birthdate.month = Integer.parseInt(fields[6].trim());
+		stud.birthdate.date = Integer.parseInt(fields[7].trim());
 		
 		return stud;
 	}
+
+
+	@Override
+	public String toString() {
+		return this.name+", "+this.id+", "+this.age+", "+this.gender+", "+this.grade+", "+this.birthdate;
+	}
+	
+	
+	
+	
 }
 
 class BirthDate {
 	int year;
 	int month;
 	int date;
+	
+	
+	@Override
+	public String toString() {
+		return this.year+", "+this.month+", "+this.date;
+	}
+	
+	
 }
