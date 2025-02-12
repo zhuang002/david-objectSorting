@@ -8,21 +8,21 @@ public class Main {
 	public static void main(String[] args) {
 		
 		ArrayList<Student> students = loadStudents();
-		sortStudentsByName(students);
+		
 		
 		for (Student s:students) {
 			System.out.println(s);
 		}
 		System.out.println("=========================");
 		
-		
-		/*System.out.println("Sort by name");
+		sortStudentsByName(students);
+		System.out.println("Sort by name");
 		for (Student s:students) {
 			System.out.println(s);
 		}
-		System.out.println("=========================");*/
+		System.out.println("=========================");
 		
-		/*sortStudentById(students);
+		sortStudentById(students);
 		System.out.println("Sort by id");
 		for (Student s:students) {
 			System.out.println(s);
@@ -30,12 +30,44 @@ public class Main {
 		
 		System.out.println("========================");
 		
-		sortStudentByBirthday(students)
+		sortStudentByBirthday(students);
 		System.out.println("Sort by birthday");
 		for (Student s:students) {
 			System.out.println(s);
-		}*/
+		}
 
+	}
+
+	private static void sortStudentByBirthday(ArrayList<Student> students) {
+		Collections.sort(students, (x,y)->{
+			if (x.birthdate.year<y.birthdate.year) { // x is older than y
+				return 1;
+			} else if (x.birthdate.year>y.birthdate.year) { // x is younger than y;
+				return -1;
+			} else { // they were born on the same year. than we need to compare the month;
+				if (x.birthdate.month<y.birthdate.month) { //x is older than y;
+					return 1;
+				} else if (x.birthdate.month>y.birthdate.month) { // x is younger than y;
+					return -1;
+				} else { // x and y were born in the same year same month.
+					if (x.birthdate.date<y.birthdate.date) {
+						return 1;
+					} else if (x.birthdate.date>y.birthdate.date) {
+						return -1;
+					} else { // they were born on the same day.
+						return 0;
+					}
+				}
+			}
+		});
+		
+	}
+
+	private static void sortStudentById(ArrayList<Student> students) {
+		// TODO Auto-generated method stub
+		Collections.sort(students, (x,y)->{
+			return y.id-x.id;
+		});
 	}
 
 	private static ArrayList<Student> loadStudents() {
@@ -53,7 +85,10 @@ public class Main {
 	}
 
 	private static void sortStudentsByName(ArrayList<Student> students) {
-		
+		Collections.sort(students, (x,y)->{
+			return x.name.compareTo(y.name); // compare 2 strings, directly use string.compareTo() method which 
+			// is built in the String class.
+		});
 		
 	}
 
